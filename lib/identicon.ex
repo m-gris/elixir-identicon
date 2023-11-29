@@ -48,9 +48,9 @@ defmodule Identicon do
   
   def build_grid(image) do 
     %Identicon.Image{hex: hex} = image
-    for chunk <- Enum.chunk(hex, 3) do
-      Identicon.mirror(chunk)
-      end
+    hex
+    |> Enum.chunk(3)
+    |> Enum.map(&Identicon.mirror/1)
   end
   
 
