@@ -64,10 +64,8 @@ defmodule Identicon do
 
   """ 
   def mirror(list) do
-    end_of_slice = Enum.count(list) - 2
-    to_be_mirrored = Enum.slice(list, 0..end_of_slice)
-    new_tail = Enum.reverse(to_be_mirrored)
-    Enum.concat(list, new_tail)
+    new_tail = Enum.reverse(list) |> Enum.drop(1)
+    list ++ new_tail
   end
 
 end
