@@ -43,6 +43,21 @@ defmodule Identicon do
 
 
   
+
+  @doc """ 
+  
+  ## Examples 
+    
+    iex> Identicon.mirror([1, 2, 3, 4])
+    [1, 2, 3, 4, 3, 2, 1]
+
+
+  """ 
+  def mirror(list) do
+    end_of_slice = Enum.count(list) - 2
+    to_be_mirrored = Enum.slice(list, 0..end_of_slice)
+    new_tail = Enum.reverse(to_be_mirrored)
+    Enum.concat(list, new_tail)
   end
 
 end
