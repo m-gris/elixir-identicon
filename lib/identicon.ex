@@ -6,8 +6,11 @@ defmodule Identicon do
   def main(input) do
     input
     |> hash_input
+    |> get_color
   end
-  
+
+
+
   @doc """
   
   ## Examples 
@@ -42,6 +45,13 @@ defmodule Identicon do
   end
 
 
+  
+  def build_grid(image) do 
+    %Identicon.Image{hex: hex} = image
+    for chunk <- Enum.chunk(hex, 3) do
+      Identicon.mirror(chunk)
+      end
+  end
   
 
   @doc """ 
