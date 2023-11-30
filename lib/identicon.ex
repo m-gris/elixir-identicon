@@ -7,6 +7,7 @@ defmodule Identicon do
     input
     |> hash_input
     |> get_color
+    |> build_grid
   end
 
 
@@ -41,16 +42,20 @@ defmodule Identicon do
   """
   def get_color(image) do
     %Identicon.Image{hex: [r, g, b | _tail] } = image
-    %Identicon.Image{image | color: {r, g, b}}
+    %Identicon.Image{ image | color: {r, g, b}}
   end
 
 
   
   def build_grid(image) do 
     %Identicon.Image{hex: hex} = image
-    hex
-    |> Enum.chunk(3)
-    |> Enum.map(&Identicon.mirror/1)
+    grid = 
+      hex
+      |> Enum.chunk(3)
+      |> Enum.map(&Identicon.mirror/1)
+      |> List.flatten
+      |> Enum.with_index
+    %Identicon.Image{ image | grid: grid}
   end
   
 
