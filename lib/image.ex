@@ -9,6 +9,6 @@ defmodule Identicon.Image do
   and "determined" keys. (ie it can be assigned new keys)
 
   """
-  defstruct hex: nil, color: nil, grid: nil
+  defstruct hex: nil, color: nil, grid: nil, pixel_map: nil
 end
 
