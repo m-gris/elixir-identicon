@@ -1,6 +1,6 @@
 defmodule Identicon do
   @moduledoc """
-  Documentation for `Identicon`.
+  A module that will generate a random Identicon from an input string.
   """
 
   def main(input) do
@@ -9,6 +9,7 @@ defmodule Identicon do
     |> get_color
     |> build_grid
     |> filter_odd_squares
+    |> build_pixel_map
   end
 
 
@@ -91,5 +92,21 @@ defmodule Identicon do
     new_tail = Enum.reverse(list) |> Enum.drop(1)
     list ++ new_tail
   end
+  
 
+  def to_coordinate({_value, idx}) do 
+      upper_left_x = rem(idx, 5) * 50
+      upper_left_y = div(idx, 5) * 50 
+      lower_right_x = upper_left_x + 50
+      lower_right_y = upper_left_y + 50 
+      {{upper_left_x, upper_left_y}, {lower_right_x, lower_right_y}} 
+  end
+
+  def build_pixel_map(image) do
+    %Identicon.Image{grid: grid} = image
+    pixel_map = 
+      grid
+        |> Enum.map(&to_coordinate/1)
+    %Identicon.Image{image | pixel_map: pixel_map}
+  end
 end
