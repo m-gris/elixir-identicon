@@ -94,19 +94,15 @@ defmodule Identicon do
   end
   
 
-  def to_coordinate({_value, idx}) do 
-      upper_left_x = rem(idx, 5) * 50
-      upper_left_y = div(idx, 5) * 50 
-      lower_right_x = upper_left_x + 50
-      lower_right_y = upper_left_y + 50 
-      {{upper_left_x, upper_left_y}, {lower_right_x, lower_right_y}} 
-  end
-
-  def build_pixel_map(image) do
+  def build_pixel_image(image) do  
     %Identicon.Image{grid: grid} = image
-    pixel_map = 
-      grid
-        |> Enum.map(&to_coordinate/1)
+    pixel_map = Enum.map(grid, fn({_value, idx}) -> 
+        upper_left_x = rem(idx, 5) * 50
+        upper_left_y = div(idx, 5) * 50 
+        lower_right_x = upper_left_x + 50
+        lower_right_y = upper_left_y + 50 
+        {{upper_left_x, upper_left_y}, {lower_right_x, lower_right_y}} 
+      end)
     %Identicon.Image{image | pixel_map: pixel_map}
   end
 end
