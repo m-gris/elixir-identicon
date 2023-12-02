@@ -116,7 +116,7 @@ defmodule Identicon do
   end
   
 
-  def build_pixel_image(image) do  
+  def build_pixel_map(image) do  
     %Identicon.Image{grid: grid} = image
     pixel_map = Enum.map(grid, fn({_value, idx}) -> 
         upper_left_x = rem(idx, 5) * 50
