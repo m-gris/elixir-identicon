@@ -10,7 +10,25 @@ defmodule Identicon do
     |> build_grid
     |> filter_odd_squares
     |> build_pixel_map
+    |> draw_image
   end
+
+  
+  def draw_image(_image_struct) do 
+    %Identicon.Image{color: color, pixel_map: pixel_map} = _image_struct
+    image = :egd.create(250, 250)
+    filler = :egd.color(color) 
+    
+    # Enum.each => like Enum.map but for "side effects" (i.e does not return a new seq)
+    # // doseq in Clojure
+    Enum.each pixel_map, fn({top_right, bottom_left})-> 
+        # nota... here we are mutating in place... pretty rare in Erlang / Elixir...
+        :egd.filledRectangle(image, top_right, bottom_left, filler)
+      end
+
+    :egd.render(image) # a binary (png by default)
+  end
+
 
 
 
